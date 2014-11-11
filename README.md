@@ -2,6 +2,8 @@ SAVI Assignment 5
 =================
 Create a leaflet-based web map that incorporates data from an external source that you've prepped for web mapping. Include a short write-up for the assignment somewhere in the site (popup window, about box, etc) explaining your data source, how you prepared the data, methodology for mapping, etc.
 
+View live:  http://jackielu.github.io/savi-assg-5/
+
 Data source:
 ------------
 New York State Ecozones / Ecological Regions, after Will et al. (1982) and Dickinson (1983)
