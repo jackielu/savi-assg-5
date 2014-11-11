@@ -37,7 +37,7 @@ function makeMarkers(feature, layer){
 	}
 
 
-$.getJSON('/data/ecozone_wgs84_multipart.geojson', function(data){
+$.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 	//console.log(data);
 	L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
