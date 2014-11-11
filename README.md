@@ -15,6 +15,7 @@ Data prep:
 ----------
 1. Downloaded KML files from NYS GIS Clearinghouse
 2. Used geojson.io to convert to geoJSON format
+3. Used QGIS to convert singlepart polygons to multipart polys.
 
 (first downloaded SHP file and tried converting using QGIS, which did not work b/c lat/longs were getting decimals dropped for some reason.  Also required an add'l step of reprojecting the data - bad)
 
@@ -24,5 +25,7 @@ Mapping:
 - features were labeled by adding the plug-in Leaflet.lable 
 - may have been possible to use instead L.DivIcon and no library
 
-
+TO DO:
+------
 ** sidebar div links / interactivity not working yet **
+** add a legend for the colors on the map **
