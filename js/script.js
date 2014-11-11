@@ -15,16 +15,31 @@ L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
 
 function makeMarkers(feature, layer){
 	//console.log(feature);
-	layer.bindPopup(
-		"Ecozone: <br>"
+	//layer.bindPopup defines the pop-up value
+	//layer.bindPopup(
+	//	"Ecozone: <br>"
+	//	+ feature.properties.MINOR_DESC
+	//	);
+	//layer.bindLabel defines the label text
+	layer.bindLabel(
+		feature.properties.MINOR
+		);
+
+	//set up divs classed using the MINOR_DESC 
+	$('#sideBar').append(
+		"<div class = 'sideBarItem' id='"
 		+ feature.properties.MINOR_DESC
-	);
-}
+		+"'>"
+		)
+
+	}
+
 
 $.getJSON('/data/ecozone_wgs84.geojson', function(data){
 	//console.log(data);
 	L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
+		//this provides thematic styling to the layers
 		style: function(feature) {
 			switch (feature.properties.MAJORCOLOR) {
 				case 'ZONE A': return {color:"#a6cee3"};
@@ -40,8 +55,9 @@ $.getJSON('/data/ecozone_wgs84.geojson', function(data){
 				case 'ZONE K': return {color:"#ffff99"};
 				case 'ZONE L': return {color:"#b15928"};
 			}
-		}, weight:0.75, opacity: 0.9, fillOpacity: 0.5
-	}).addTo(map);  //add to map
+		}, weight:1.5, opacity: 0.95, fillOpacity: 0.5
+	})
+	.addTo(map);  //add to map
 });
 
 
