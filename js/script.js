@@ -28,7 +28,7 @@ function makeMarkers(feature, layer){
 	//set up divs classed using the MINOR_DESC 
 	$('#sideBar').append(
 		"<div class = 'sideBarItem' id='"
-		+ feature.properties.MAJORCOLOR
+		+ feature.properties.MINOR_NUM
 		+"'>"
 		+ feature.properties.MINOR_DESC
 		+"</div>"
@@ -57,7 +57,7 @@ $.getJSON('/data/ecozone_wgs84_multipart.geojson', function(data){
 				case 'ZONE K': return {color:"#ffff99"};
 				case 'ZONE L': return {color:"#b15928"};
 			}
-		}, weight:1.5, opacity: 0.95, fillOpacity: 0.5
+		}, weight:1.25, opacity: 0.95, fillOpacity: 0.5
 	})
 	.addTo(map);  //add to map
 });
