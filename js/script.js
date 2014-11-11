@@ -28,14 +28,16 @@ function makeMarkers(feature, layer){
 	//set up divs classed using the MINOR_DESC 
 	$('#sideBar').append(
 		"<div class = 'sideBarItem' id='"
-		+ feature.properties.MINOR_DESC
+		+ feature.properties.MAJORCOLOR
 		+"'>"
+		+ feature.properties.MINOR_DESC
+		+"</div>"
 		)
 
 	}
 
 
-$.getJSON('/data/ecozone_wgs84.geojson', function(data){
+$.getJSON('/data/ecozone_wgs84_multipart.geojson', function(data){
 	//console.log(data);
 	L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
