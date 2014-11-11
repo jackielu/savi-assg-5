@@ -8,11 +8,40 @@
   <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.label/leaflet.label.css" />
 
 </head>
+
+<header>
+	<h1> New York State Ecoregions </h1>
+	<div id = 'about'>About this map</div>
+</header>
+
 <body>
 	<div id="sideBar"></div>
   
-  <div id="map"></div> 
-  
+  	<div id="map"></div> 
+
+
+	<div id='mask'></div>
+	<div class = "popup privacy">
+  		<div class = "close">&#10006;</div>
+  		<h2>About this map</h2>
+  		
+		<p> This map was created for XSAVI-780 Assignment 5 </p>
+
+		<p> Date preparation involved downloading the KML data from the New York State GIS Clearinghouse, and using <a href="http://geojson.io"> geojson.io </a> to convert the data to GeoJSON format </p>
+
+		<p>Data source:
+			New York State Ecozones / Ecological Regions, after Will et al. (1982) and Dickinson (1983)
+		</p>
+
+		<p>Published by New York State DEC, July 3rd 2008. <a href="http://gis.ny.gov/gisdata/inventories/details.cfm?dsid=1131&nysgis="> Download the data </a>
+		</p>
+
+		<p>Feature labels were created using the plug-in <a href="https://github.com/Leaflet/Leaflet.label">Leaflet.label</a>
+		</p>
+		
+	</div>
+	
+
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
   <script src="http://leaflet.github.io/Leaflet.label/leaflet.label.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

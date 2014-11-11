@@ -21,3 +21,6 @@ Mapping:
 --------
 - features were labeled by adding the plug-in Leaflet.lable 
 - may have been possible to use instead L.DivIcon and no library
+
+
+** sidebar div links / interactivity not working yet **

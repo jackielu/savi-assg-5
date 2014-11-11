@@ -63,5 +63,14 @@ $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 });
 
 
+//listeners for the About pop-up window
+$('#about').on('click',function(){
+	$('#mask').fadeIn(250);
+	$('.popup').fadeIn(250);
+});
 
+$('.close').on('click',function(){
+	$(this).parent().fadeOut(250);
+	$('#mask').fadeOut(250);
+});
 
