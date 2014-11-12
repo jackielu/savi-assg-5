@@ -27,5 +27,4 @@ Mapping:
 
 TO DO:
 ------
-** sidebar div links / interactivity not working yet **
 ** add a legend for the colors on the map **
