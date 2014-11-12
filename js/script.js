@@ -13,6 +13,7 @@ L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
+//function to create pop-ups and sidebar divs
 function makeMarkers(feature, layer){
 	//console.log(feature);
 	//layer.bindPopup defines the pop-up value
@@ -24,7 +25,6 @@ function makeMarkers(feature, layer){
 	layer.bindLabel(
 		feature.properties.MINOR
 		);
-
 	//set up divs classed using the MINOR_DESC 
 	$('#sideBar').append(
 		"<div class = 'sideBarItem' id='"
@@ -33,13 +33,30 @@ function makeMarkers(feature, layer){
 		+ feature.properties.MINOR_DESC
 		+"</div>"
 		)
-
 	}
 
 
+function highlightMarker(geojsonLayer,thisPoly) {
+  geojsonLayer.eachLayer(function(marker) {
+		if(thisPoly==marker.feature.properties.MINOR_NUM) {
+   		marker.setStyle({
+   			fillOpacity: 0.95,
+   			weight:3
+   			});
+   			//console.log(marker.options.fillOpacity);
+		} else {
+			marker.setStyle({
+				fillOpacity:.5,
+				weight:1.25
+				});
+		}
+  });
+}
+
+//add your data to the map
 $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 	//console.log(data);
-	L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
+	var geojsonLayer = L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
 		//this provides thematic styling to the layers
 		style: function(feature) {
@@ -60,6 +77,16 @@ $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 		}, weight:1.25, opacity: 0.95, fillOpacity: 0.5
 	})
 	.addTo(map);  //add to map
+
+	$('.sideBarItem')
+	.mouseenter(function(){
+		$(this).toggleClass('highlight');
+		var thisPoly = $(this).attr('id');
+		highlightMarker(geojsonLayer,thisPoly);
+	})
+	.mouseout(function(){
+		$(this).toggleClass('highlight');
+	})
 });
 
 
