@@ -53,28 +53,42 @@ function highlightMarker(geojsonLayer,thisPoly) {
   });
 }
 
+
+//get color depending on the Zone value
+function getColor(z) {
+	return 	z == 'ZONE A' ? '#a6cee3':
+			z == 'ZONE B' ? '#1f78b4':
+			z == 'ZONE C' ? '#b2df8a':
+			z == 'ZONE D' ? '#33a02c':
+			z == 'ZONE E' ? '#fb9a99':
+			z == 'ZONE F' ? '#e31a1c':
+			z == 'ZONE G' ? '#fdbf6f':
+			z == 'ZONE H' ? '#ff7f00':
+			z == 'ZONE I' ? '#cab2d6':
+			z == 'ZONE J' ? '#6a3d9a':
+			z == 'ZONE K' ? '#ffff99':
+			z == 'ZONE L' ? '#b15928':
+			'#000000';
+	}
+
+function style(feature) {
+	return {
+		fillColor: getColor(feature.properties.MAJORCOLOR),
+		color: getColor(feature.properties.MAJORCOLOR),
+		weight: 1.25,
+		opacity: 0.95,
+		fillOpacity: 0.5
+	};
+}
+
+
 //add your data to the map
 $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 	//console.log(data);
 	var geojsonLayer = L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
 		//this provides thematic styling to the layers
-		style: function(feature) {
-			switch (feature.properties.MAJORCOLOR) {
-				case 'ZONE A': return {color:"#a6cee3"};
-				case 'ZONE B': return {color:"#1f78b4"};
-				case 'ZONE C': return {color:"#b2df8a"};
-				case 'ZONE D': return {color:"#33a02c"};
-				case 'ZONE E': return {color:"#fb9a99"};
-				case 'ZONE F': return {color:"#e31a1c"};
-				case 'ZONE G': return {color:"#fdbf6f"};
-				case 'ZONE H': return {color:"#ff7f00"};
-				case 'ZONE I': return {color:"#cab2d6"};
-				case 'ZONE J': return {color:"#6a3d9a"};
-				case 'ZONE K': return {color:"#ffff99"};
-				case 'ZONE L': return {color:"#b15928"};
-			}
-		}, weight:1.25, opacity: 0.95, fillOpacity: 0.5
+		style: style
 	})
 	.addTo(map);  //add to map
 
