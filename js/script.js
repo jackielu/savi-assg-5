@@ -28,7 +28,7 @@ function makeMarkers(feature, layer){
 	//set up divs classed using the MINOR_DESC 
 	$('#sideBar').append(
 		"<div class = 'sideBarItem' id='"
-		+ feature.properties.MINOR_NUM
+		+ feature.properties.MAJORCOLOR
 		+"'>"
 		+ feature.properties.MINOR_DESC
 		+"</div>"
@@ -82,8 +82,10 @@ function style(feature) {
 }
 
 
+
 //add your data to the map
 $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
+	//window.test = data;  //only use window for testing
 	//console.log(data);
 	var geojsonLayer = L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
@@ -102,6 +104,16 @@ $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 		$(this).toggleClass('highlight');
 	})
 });
+
+
+//ADDING A LEGEND TO THE MAP
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+	//use DomUtil to create divs with classes info legend
+	var div = L.DomUtil.create('div', 'info legend')
+	//create labels
+}
 
 
 //listeners for the About pop-up window
