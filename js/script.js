@@ -27,7 +27,7 @@ function makeMarkers(feature, layer){
 	//set up divs classed using the MINOR_DESC 
 	$('#sideBar').append(
 		"<div class = 'sideBarItem' id='"
-		+ feature.properties.MAJORCOLOR
+		+ feature.properties.MINOR_NUM
 		+"'>"
 		+ feature.properties.MINOR_DESC
 		+"</div>"
@@ -52,9 +52,11 @@ function highlightMarker(geojsonLayer,thisPoly) {
   });
 }
 
+var polyColors = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928'];
+
 
 //get color depending on the Zone value
-function getColor(z) {
+function getColor2(z) {
 	return 	z == 'ZONE A' ? '#a6cee3':
 			z == 'ZONE B' ? '#1f78b4':
 			z == 'ZONE C' ? '#b2df8a':
@@ -69,6 +71,26 @@ function getColor(z) {
 			z == 'ZONE L' ? '#b15928':
 			'#000000';
 	}
+
+
+
+//get color depending on the Zone value - not hard coded version
+function getColor(z) {
+	return 	z == unique(keys)[0] ? '#a6cee3':
+			z == unique(keys)[1] ? '#1f78b4':
+			z == unique(keys)[2] ? '#fdbf6f':
+			z == unique(keys)[3] ? '#33a02c':
+			z == unique(keys)[4] ? '#fb9a99':
+			z == unique(keys)[5] ? '#e31a1c':
+			z == unique(keys)[6] ? '#ffff99':
+			z == unique(keys)[7] ? '#ff7f00':
+			z == unique(keys)[8] ? '#cab2d6':
+			z == unique(keys)[9] ? '#6a3d9a':
+			z == unique(keys)[10] ? '#b2df8a':
+			z == unique(keys)[11] ? '#b15928':
+			'#000000';
+	}
+
 
 function style(feature) {
 	return {
@@ -103,15 +125,16 @@ function unique(keys) {
 $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 	//window.test = data;  //only use window for testing
 	//console.log(data);
+
+	//call the function to create zoneArray
+	getArray(data);
+
 	var geojsonLayer = L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
 		onEachFeature: makeMarkers,
 		//this provides thematic styling to the layers
 		style: style
 	})
 	.addTo(map);  //add to map
-
-	//call the function to create zoneArray
-	getArray(data);
 
 	$('.sideBarItem')
 	.mouseenter(function(){
