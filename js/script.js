@@ -1,4 +1,3 @@
-
 //set up our map
 var map = L.map('map')
 	.setView([42.7559421,-75.8092041], 7);
@@ -81,7 +80,24 @@ function style(feature) {
 	};
 }
 
+//define a blank array
+var keys = [];
 
+
+//this is a function that pulls the values from MAJORCOLOR
+function getArray(data) {
+	for (var i=0; i< data.features.length; i++) {
+	keys.push(data.features[i].properties.MAJORCOLOR);
+	}
+}
+
+//this is a function to collapse to unique values
+function unique(keys) {
+    return keys.reduce(function(p, c) {
+        if (p.indexOf(c) < 0) p.push(c);
+        return p;
+    }, []);
+};
 
 //add your data to the map
 $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
@@ -94,6 +110,9 @@ $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 	})
 	.addTo(map);  //add to map
 
+	//call the function to create zoneArray
+	getArray(data);
+
 	$('.sideBarItem')
 	.mouseenter(function(){
 		$(this).toggleClass('highlight');
@@ -104,16 +123,6 @@ $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 		$(this).toggleClass('highlight');
 	})
 });
-
-
-//ADDING A LEGEND TO THE MAP
-var legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function (map) {
-	//use DomUtil to create divs with classes info legend
-	var div = L.DomUtil.create('div', 'info legend')
-	//create labels
-}
 
 
 //listeners for the About pop-up window
