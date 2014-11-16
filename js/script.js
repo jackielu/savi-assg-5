@@ -22,7 +22,8 @@ function makeMarkers(feature, layer){
 	//	);
 	//layer.bindLabel defines the label text
 	layer.bindLabel(
-		feature.properties.MINOR
+		feature.properties.MINOR,
+		{direction: 'auto'}
 		);
 	//set up divs classed using the MINOR_DESC 
 	$('#sideBar').append(
@@ -51,8 +52,6 @@ function highlightMarker(geojsonLayer,thisPoly) {
 		}
   });
 }
-
-var polyColors = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928'];
 
 
 //get color depending on the Zone value
@@ -105,7 +104,6 @@ function style(feature) {
 //define a blank array
 var keys = [];
 
-
 //this is a function that pulls the values from MAJORCOLOR
 function getArray(data) {
 	for (var i=0; i< data.features.length; i++) {
@@ -146,6 +144,31 @@ $.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
 		$(this).toggleClass('highlight');
 	})
 });
+
+
+//this is the legend - another leaflet control
+var legend = L.control({position: 'bottomleft'});
+
+legend.onAdd = function (map) {
+	//use DomUtil to create divs with class info legend
+	var div = L.DomUtil.create('div', 'info legend'),
+		labels = []; //empty array for adding stuff to the legend
+	//this loops through linking legend items with colors, resulting in all the pieces going into your legend
+	for (var j = 0; j < unique(keys).length; j++) {
+		labels.push(
+			'<i style="background:' 
+			+ getColor(unique(keys)[j]) 
+			+ '"></i> '
+			+ unique(keys)[j]);
+	}
+
+	console.log(labels);
+	window.test=labels;
+	//joining up the labels array pieces
+	div.innerHTML = labels.join('<br>');
+	return div;
+};
+legend.addTo(map);
 
 
 //listeners for the About pop-up window
