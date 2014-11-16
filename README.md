@@ -25,9 +25,3 @@ Mapping:
 - features were labeled by adding the plug-in Leaflet.lable 
 - may have been possible to use instead L.DivIcon and no library
 
-TO DO:
-------
-** add a legend for the colors on the map **
-** sort list on the right **
-* add interactivity - when you roll off side bar either keep div highlighted or unselect the polygon
-* click on a polygon - highlight associated div

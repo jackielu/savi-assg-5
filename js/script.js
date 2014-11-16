@@ -119,32 +119,6 @@ function unique(keys) {
     }, []);
 };
 
-//add your data to the map
-$.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
-	//window.test = data;  //only use window for testing
-	//console.log(data);
-
-	//call the function to create zoneArray
-	getArray(data);
-
-	var geojsonLayer = L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
-		onEachFeature: makeMarkers,
-		//this provides thematic styling to the layers
-		style: style
-	})
-	.addTo(map);  //add to map
-
-	$('.sideBarItem')
-	.mouseenter(function(){
-		$(this).toggleClass('highlight');
-		var thisPoly = $(this).attr('id');
-		highlightMarker(geojsonLayer,thisPoly);
-	})
-	.mouseout(function(){
-		$(this).toggleClass('highlight');
-	})
-});
-
 
 //this is the legend - another leaflet control
 var legend = L.control({position: 'bottomleft'});
@@ -162,13 +136,45 @@ legend.onAdd = function (map) {
 			+ unique(keys)[j]);
 	}
 
-	console.log(labels);
-	window.test=labels;
+	//console.log(labels);
+	//window.test=labels;
 	//joining up the labels array pieces
 	div.innerHTML = labels.join('<br>');
 	return div;
 };
-legend.addTo(map);
+
+
+//add your data to the map
+$.getJSON('data/ecozone_wgs84_multipart.geojson', function(data){
+	//window.test = data;  //only use window for testing
+	//console.log(data);
+
+	//call the function to create zoneArray
+	getArray(data);
+
+	//call the function to add the legend to the map
+	legend.addTo(map);
+
+	var geojsonLayer = L.geoJson(data.features, {  //use leaflet's functionality to grab geoJSON features
+		onEachFeature: makeMarkers,
+		//this provides thematic styling to the layers
+		style: style
+	})
+	.addTo(map);  //add to map
+
+	$('.sideBarItem')
+	.mouseenter(function(){
+		$(this).toggleClass('highlight');
+		var thisPoly = $(this).attr('id');
+		highlightMarker(geojsonLayer,thisPoly);
+	})
+	.mouseout(function(){
+		$(this).toggleClass('highlight');
+		var thisPoly;
+		highlightMarker(geojsonLayer,thisPoly);
+	})
+});
+
 
 
 //listeners for the About pop-up window
